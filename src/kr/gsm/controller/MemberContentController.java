@@ -19,7 +19,7 @@ public class MemberContentController extends HttpServlet {
 		MemberVO vo = dao.memContent(num);
 		
 		request.setAttribute("vo", vo);
-		RequestDispatcher rd = request.getRequestDispatcher("/auto/member/memberContent.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("member/memberContent.jsp");
 		rd.forward(request, response);
 	}
 

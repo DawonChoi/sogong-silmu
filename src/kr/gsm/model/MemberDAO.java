@@ -44,13 +44,14 @@ public class MemberDAO {
 	
 	public int memUpdate(MemberVO vo) {
 		conn = getDbConnection();
-		String SQL="UPDATE tblmem SET pwd=?, age=? where id=?";
+		String SQL="UPDATE tblmem SET tel=?, email=?, addr=? where num=?";
 		int state = 0;
 		try {
 			ps=conn.prepareStatement(SQL);
-			ps.setString(1, vo.getPwd());
-			ps.setInt(2, vo.getAge());
-			ps.setString(3, vo.getId());
+			ps.setString(1, vo.getTel());
+			ps.setString(2, vo.getEmail());
+			ps.setString(3, vo.getAddr());
+			ps.setInt(4, vo.getNum());
 			state = ps.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
