@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>지도에 교통정보 표시하기</title>
+    
+</head>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<body>
+주소입력 : <input type="text" name="address" id="address" size="50"/>
+<input type="button" id="btn" value="지도보기"/>
+
+<hr/>
+<div id="map" style="width:800px;height:600px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ad3d35e8999b6599fc94ec6a052ce0d3"></script>
+<script>
+ $(document).ready(function(){   
+	 $("#btn").click(function(){
+		 var address=$("#address").val();
+		 $.ajax({
+			 url : "map.do",
+			 type : "post",
+			 data : { "address" : address},
+			 dataType : "json",
+			 success : resultHtml,
+			 error : function() { alert("error"); }			 
+		 }); 		
+		 
+		 console.log(address);
+	 });
+ });
+
+ function resultHtml(data){
+
+	 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(data.y, data.x), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(data.y, data.x); 
+
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+
+	// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+	// marker.setMap(null);   
+
+ }
+</script>
+</body>
+</html>

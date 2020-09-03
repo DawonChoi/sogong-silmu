@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	  
+	  $("#register").click(function(){
+		 var id = $("#id").val();
+		 var pwd = $("#pwd").val();
+		 var age = $("#age").val();
+		 $.ajax({
+			url : "memInsert.me", //MemInsertController.java
+			type : "POST",
+			data : {"id":id, "pwd":pwd, "age":age},
+			success : listGo,
+			error : function() { alert("java.sql.SQLException : 입력된 문자가 너무 깁니다(100자 이하)"); }
+		 });
+	  });
+	  
+	  
+	  $("#btn").click(function(){
+		  listGo();
+	  });
+  });
+  
+  function listGo(){
+	  $.ajax({
+		  url : "memList.me", // MemListController.java
+		  type : "GET",
+		  dataType : "json",
+		  success : resultHtml,
+		  error : function(){ alert("error"); }
+	  });
+  }
+  
+  function resultHtml(data){
+	  var html = "<table border='1'>";
+	  html+="<tr>";
+	  html+="<td>Index</td>"
+	  html+="<td>아이디</td>";
+	  html+="<td>비밀번호</td>";
+	  html+="<td>나이</td>";
+	  html+="<td>삭제</td>";
+	  html+="</tr>";
+	  $.each(data, function(index, obj){
+		  html+="<tr>";
+		  html+="<td>"+index+"</td>";
+		  html+="<td>"+obj.id+"</td>";
+		  html+="<td>"+obj.pwd+"</td>";
+		  html+="<td>"+obj.age+"</td>";
+		  html+='<td><input type="button" value="삭제" onClick="delFn()"/></td>';
+		  html+="</tr>";
+	  });
+	   
+	  html+="</table>";
+	  
+	  $("#list").empty();
+	  $("#list").append(html);
+	  $("#minput").css("visibility","visible");
+  }
+  function delFn(id){
+	  alert(id);
+  }
+</script>
+</head>
+<body>
+- JQuery(Ajax 실습) <br>
+<input type="button" value="리스트가져오기" id="btn"/>
+<hr/>
+<div id="list"></div>
+<hr/>
+<div style="visibility: hidden;" id="minput">
+  <form>
+    <table>
+      <tr>
+        <td>아이디</td>
+        <td><input type="text" name="id" id="id"/></td>
+      </tr>
+      <tr>
+        <td>비밀번호</td>
+        <td><input type="text" name="pwd" id="pwd"/></td>
+      </tr>
+      <tr>
+        <td>나이</td>
+        <td><input type="text" name="age" id="age"/></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="button" value="가입" id="register"/>
+          <input type="reset" value="취소"/>          
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+</body>
+</html>
