@@ -10,6 +10,11 @@
 <head>
 <meta charset="EUC-KR">
 <title>user details</title>
+<script type="text/javascript">
+	function back(){
+		location.href="/auto/list.do"
+	}
+</script>
 </head>
 <body>
 <h1> - 상세보기 - </h1>
@@ -43,7 +48,7 @@
   <tr>
     <td colspan="2" align="center">
     	<input type="submit" value="수정"/>
-    	<input type="button" value="리스트"/>
+    	<input type="button" value="리스트" onclick="back()"/>
     </td>
   </tr>
 </table>
