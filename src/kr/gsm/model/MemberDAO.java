@@ -61,13 +61,13 @@ public class MemberDAO {
 		return state;
 	}
 	
-	public int memDelete(String num) {
+	public int memDelete(int num) {
 		conn = getDbConnection();
 		String SQL="Delete from tblmem where num=?";
 		int state = 0;
 		try {
 			ps=conn.prepareStatement(SQL);
-			ps.setString(1, num);
+			ps.setInt(1, num);
 			state = ps.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();

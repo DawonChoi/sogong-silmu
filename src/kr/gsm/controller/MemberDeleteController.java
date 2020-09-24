@@ -10,7 +10,7 @@ import kr.gsm.model.*;
 @WebServlet("/delete")
 public class MemberDeleteController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("num");
+		int num = Integer.parseInt(request.getParameter("num"));
 		
 		MemberDAO dao = new MemberDAO();
 		
