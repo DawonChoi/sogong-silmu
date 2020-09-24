@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.gsm.controller.MemberInsertPojo;
+import kr.gsm.controller.MemberListPojo;
 import kr.gsm.model.*;
 public class MemberFrontController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,30 +26,16 @@ public class MemberFrontController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		if(cmd.equals("/list.do")) {
-			MemberDAO dao=new MemberDAO();
-			ArrayList<MemberVO> list=dao.getAllList();
+			MemberListPojo pojo = new MemberListPojo();
+			String nextPage = pojo.requestHandler(request, response);
 			
-			request.setAttribute("list", list);
-			RequestDispatcher rd = request.getRequestDispatcher("memberList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
 			rd.forward(request, response);
 		}else if(cmd.equals("/insert.do")) {
-			request.setCharacterEncoding("euc-kr");
-			int bun = Integer.parseInt(request.getParameter("bun"));
-			String name = request.getParameter("name");
-			String tel = request.getParameter("tel");
-			String email = request.getParameter("email");
-			String addr = request.getParameter("addr");
+			MemberInsertPojo pojo = new MemberInsertPojo();
+			String nextPage = pojo.requestHandler(request, response);
 			
-			MemberVO vo = new MemberVO(bun, name, tel, email, addr);
-			MemberDAO dao = new MemberDAO();
-			int cnt = dao.memInsert(vo);
-			
-			if(cnt > 0) {
-				out.println("OK");
-				response.sendRedirect("list.do");
-			}else {
-				out.println("FAIL");
-			}
+			response.sendRedirect(nextPage);
 		}else if(cmd.equals("/delete.do")) {
 			int num=Integer.parseInt(request.getParameter("num"));
 			MemberDAO dao=new MemberDAO();
