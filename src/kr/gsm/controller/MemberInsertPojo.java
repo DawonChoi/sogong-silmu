@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.gsm.model.MemberDAO;
+import kr.gsm.model.MemberMyBatisDAO;
 import kr.gsm.model.MemberVO;
 
 public class MemberInsertPojo implements Controller{
@@ -23,7 +24,7 @@ public class MemberInsertPojo implements Controller{
 		String addr = request.getParameter("addr");
 		
 		MemberVO vo = new MemberVO(bun, name, tel, email, addr);
-		MemberDAO dao = new MemberDAO();
+		MemberMyBatisDAO dao = new MemberMyBatisDAO();
 		int cnt = dao.memInsert(vo);
 		String nextPage = null;
 		if(cnt > 0) {

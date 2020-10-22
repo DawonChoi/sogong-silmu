@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gsm.mybatis.MemberMapper">
+  
+  <select id="memberList" resultType="kr.gsm.model.MemberVO">
+  	select * from tblMem
+  </select>
+  
+  <select id="memberInsert">
+  	insert into tblMem values(seq_num.nextval,
+  	#{bun},
+  	#{name},
+  	#{tel},
+  	#{email},
+  	#{addr})
+  </select>
+  
+  <select id="memberDelete" parameterType="Integer">
+  	delete from tblMem where num=#{num}
+  </select>
+  
+  <select id="memberContent" parameterType="Integer" resultType="kr.gsm.model.MemberVO">
+  	select * from tblMem where num=#{num}
+  </select>
+  
+  <select id="memberUpdate" parameterType="kr.gsm.model.MemberVO">
+    update tblMem SET tel=#{tel}, email=#{email}, addr=#{addr} where num=#{num}
+  </select>
+  
+</mapper>

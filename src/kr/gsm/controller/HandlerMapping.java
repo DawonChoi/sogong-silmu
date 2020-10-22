@@ -16,6 +16,8 @@ public class HandlerMapping {
 		mappings.put("/delete.do", new MemberDeletePojo());
 		mappings.put("/content.do", new MemberContentPojo());
 		mappings.put("/update.do", new MemberUpdatePojo());
+		
+		mappings.put("/insertForm.do", new MemberInsertFormController());
 	}
 	
 	public Controller getController(String url) {

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.gsm.model.MemberDAO;
+import kr.gsm.model.MemberMyBatisDAO;
 import kr.gsm.model.MemberVO;
 
 public class MemberContentPojo implements Controller{
@@ -14,7 +15,7 @@ public class MemberContentPojo implements Controller{
 			throws ServletException, IOException{
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		MemberDAO dao = new MemberDAO();
+		MemberMyBatisDAO dao = new MemberMyBatisDAO();
 		MemberVO vo = dao.memContent(num);
 		
 		request.setAttribute("vo", vo);

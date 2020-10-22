@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.gsm.model.MemberDAO;
+import kr.gsm.model.MemberMyBatisDAO;
 import kr.gsm.model.MemberVO;
 
 public class MemberUpdatePojo implements Controller{
@@ -23,7 +24,7 @@ public class MemberUpdatePojo implements Controller{
 		vo.setEmail(email);
 		vo.setAddr(addr);
 		
-		MemberDAO dao = new MemberDAO();
+		MemberMyBatisDAO dao = new MemberMyBatisDAO();
 		int cnt = dao.memUpdate(vo);
 		
 		String nextPage = null;

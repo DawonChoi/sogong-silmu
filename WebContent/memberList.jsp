@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function memform() {
-		location.href="member.html"
+		location.href="/auto/insertForm.do"
 	}
 	function memdel(num) {
 		location.href="/auto/delete?num="+num;
